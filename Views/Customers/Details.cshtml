@@ -1,0 +1,129 @@
+﻿@using ApplianceShop.Models.Customers
+@model CustomerDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1>Details of
+        <span class="text-danger">@Model.FullName</span>
+    </h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Age)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Age)
+            </dd>
+        </dl>
+    </div>
+
+
+    <hr />
+    <h5>Orders History:</h5>
+
+    @if (Model.Orders.Count > 0)
+    {
+        <table class="table table-hover dataTable">
+            <thead>
+                <tr>
+                    <th class="text-start">
+                        Order Number
+                    </th>
+                    <th>
+                        Order Time
+                    </th>
+                    <th class="text-start">
+                        Total Price
+                    </th>
+                    <th>
+                        Notes
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td class="text-start">
+                            @Html.DisplayFor(modelItem => order.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => order.OrderTime)
+                        </td>
+                        <td class="text-start">
+                            <span>$</span>@Html.DisplayFor(modelItem => order.TotalPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => order.Notes)
+                        </td>
+                        <td>
+
+                            <a class="text-decoration-none ms-2" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" title="Details">
+                                <i class="fa-solid fa-circle-info text-info fast-tooltip"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h4 class="fw-bold text-center">@Model.FullName has not placed any orders yet!</h4>
+        <hr />
+    }
+
+
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary ms-2">Edit</a>
+    </div>
+</div>
+
+
