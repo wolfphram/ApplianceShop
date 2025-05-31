@@ -1,0 +1,67 @@
+﻿@using ApplianceShop.Models.Orders
+@using ApplianceShop.Utils.Enums
+@model CreateOrderViewModel
+
+@{
+    ViewData["Title"] = "Create a new Order";
+}
+<div class="container">
+    <h1>Create a new Order</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="OrderTime" class="control-label"></label>
+                    <input asp-for="OrderTime" class="form-control" />
+                    <span asp-validation-for="OrderTime" class="text-danger"></span>
+                </div>
+                @* <div class="form-floating mt-3">
+                    <input asp-for="TotalPrice" class="form-control" placeholder="Total Price" />
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div> *@
+                <div class="form-floating mt-3">
+                    <input asp-for="Notes" class="form-control" placeholder="Notes"/>
+                    <label asp-for="Notes" class="control-label"></label>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <div class="form-floating mt-3">
+                    <select asp-for="PaymentMethod" class="form-control select-2" asp-items="@Html.GetEnumSelectList<PaymentMethod>()"></select>
+                    <label asp-for="PaymentMethod" class="control-label"></label>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                </div>
+                <div class="form-check form-switch mt-3">
+                    <input asp-for="IsPaid" class="form-check-input">
+                    <label asp-for="IsPaid" class="form-check-label">Paid</label>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="CustomerId" class="control-label mb-1">Customer</label>
+                    <select asp-for="CustomerId" class="form-control" asp-items="@Model.CustomerLookup"></select>
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="ApplianceIds" class="control-label mb-1">Appliances</label>
+                    <select asp-for="ApplianceIds" class="form-control select-2" asp-items="@Model.ApplianceLookup"></select>
+                    <span asp-validation-for="ApplianceIds" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="PartIds" class="control-label mb-1">Parts</label>
+                    <select asp-for="PartIds" class="form-control select-2" asp-items="@Model.PartLookup"></select>
+                    <span asp-validation-for="PartIds" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <input type="submit" value="Create" class="btn btn-primary ms-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

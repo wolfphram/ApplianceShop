@@ -1,0 +1,317 @@
+﻿@using ApplianceShop.Models.Homes
+@model HomePageViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 order-md-1 order-2">
+            <h1 class="display-5">Welcome to Appliance Shop</h1>
+            <p class="lead">
+                Find the best appliances and parts to make your home complete. Explore our wide range of high-quality products.
+            </p>
+            <a class="btn btn-primary btn-lg" href="/Orders/Create">Place an Order</a>
+        </div>
+        <div class="col-md-6 text-center order-md-2 order-1">
+            <img src="~/images/Appliances-Shop-2-logo-removebg.png" alt="Appliances Shop Logo" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <hr class="mb-3 mb-sm-5" style="margin-bottom: 3rem !important;">
+
+    <div class="text-center mb-5">
+        <h4>Our Most Popular Appliances</h4>
+    </div>
+
+    <div id="applianceCarousel" class="carousel slide bg-section" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.GetAppliances.Count; i++)
+            {
+                <button type="button" data-bs-target="#applianceCarousel" data-bs-slide-to="@i"
+                        class="@(i == 0 ? "active" : "")"
+                        aria-current="@(i == 0 ? "true" : "false")"
+                        aria-label="Slide @(i + 1)">
+                </button>
+            }
+        </div>
+
+        <div class="carousel-inner">
+            @foreach (var appliance in Model.GetAppliances.Select((item, index) => new { item, index }))
+            {
+                <div class="carousel-item @(appliance.index == 0 ? "active" : "")">
+                    <img src="~/images/Appliances/@($"{appliance.item.Brand} {appliance.item.Model}.png")"
+                         class="d-block w-100"
+                         alt="@appliance.item.Brand, @appliance.item.Model"
+                         style="max-height: 400px; object-fit: contain;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>@appliance.item.Brand @appliance.item.Model</h5>
+                        <p><strong>Price: $@appliance.item.Price</strong> </p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#applianceCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="text-black">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#applianceCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="text-black">Next</span>
+        </button>
+    </div>
+
+
+    <hr class="my-5">
+
+    <div class="text-center mb-5">
+        <h4>Frequently Bought Parts</h4>
+    </div>
+
+    <div id="partCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.GetParts.Count; i++)
+            {
+                <button type="button" data-bs-target="#partCarousel" data-bs-slide-to="@i"
+                        class="@(i == 0 ? "active" : "")"
+                        aria-current="@(i == 0 ? "true" : "false")"
+                        aria-label="Slide @(i + 1)">
+                </button>
+            }
+        </div>
+
+        <div class="carousel-inner">
+            @foreach (var part in Model.GetParts.Select((item, index) => new { item, index }))
+            {
+                <div class="carousel-item @(part.index == 0 ? "active" : "")">
+                    <img src="~/images/Parts/@($"{part.item.Name} {part.item.PartNumber}.png")"
+                         class="d-block w-100"
+                         alt="@part.item.Name, @part.item.PartNumber"
+                         style="max-height: 200px; object-fit: contain;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>@part.item.Name @part.item.PartNumber</h5>
+                        <p><strong>Price: $@part.item.Price</strong></p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#partCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="text-black">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#partCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="text-black">Next</span>
+        </button>
+    </div>
+
+    <hr class="my-5">
+
+</div>
+
+<div id="ourService" class="bg-section mt-3">
+
+    <div class="container py-5">
+
+        <h4 class="section-title mb-1">Our Services</h4>
+        <h2 class="section-sub-title mb-5">We have the best service in the country</h2>
+
+        <div class="row g-3">
+            <div class="col-lg-3 col-md-6">
+
+                <div class="service-card h-100">
+
+                    <div class="icon">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+                    <h5 class="title">Delivery</h5>
+                    <p class="text">
+                        We have the best delivery in the country
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-6">
+
+                <div class="service-card h-100">
+
+                    <div class="icon">
+                        <i class="fa-solid fa-blender-phone"></i>
+                    </div>
+                    <h5 class="title">Appliances</h5>
+                    <p class="text">
+                        We have the best appliances in the country
+
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-6">
+
+                <div class="service-card h-100">
+
+                    <div class="icon">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h5 class="title">Parts</h5>
+                    <p class="text">
+                        We have the best appliances parts in the country
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-6">
+
+                <div class="service-card h-100">
+
+                    <div class="icon">
+                        <i class="fa-solid fa-display"></i>
+                    </div>
+                    <h5 class="title">Displays</h5>
+                    <p class="text">
+                        We have the best displays in the country
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="ourCustomers" class="bg-section2">
+    <div class="container py-5">
+        <h4 class="section-title mb-1">Our Customers</h4>
+        <h2 class="section-sub-title mb-5">Customers Trust our Products and Services</h2>
+
+        <div class="row g-3">
+
+            @foreach (var customer in Model.OurCustomers)
+            {
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title d-flex justify-content-between">
+                                @customer.FullName
+                                <img src="~/images/c--4.svg" alt="C Sharp" style="width:40px; height:auto;" title="CSharp" class="fast-tooltip" />
+                            </h3>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">@customer.Address</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="d-flex justify-content-between align-items-center fast-tooltip">
+                                <a href="mailto:@customer.Email" class="card-link" data-bs-toggle="tooltip" data-bs-placement="top" title="@customer.Email">
+                                    <i class="fas fa-envelope" style="font-size: 30px; color: blue;"></i>
+                                </a>
+                                <a href="tel:@customer.Phone" class="card-link" data-bs-toggle="tooltip" data-bs-placement="top" title="@customer.Phone">
+                                    <i class="fas fa-phone" style="font-size: 30px; color: green;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="faq" class="container py-5">
+
+    <h4 class="section-title mb-1">FAQ</h4>
+    <h2 class="section-sub-title mb-5">Frequently Asked Questions</h2>
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Are all new things made to deteriorate faster?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Not everything new is made to deteriorate faster, but some products, 
+                    especially in certain industries, are designed to have a shorter lifespan—this is known as <strong>planned obsolescence.</strong> <br />
+                    Companies might design products to wear out or become outdated quickly in order to encourage consumers to 
+                    buy newer versions or replacements more frequently.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How to make the most out of your appliance reliability?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>
+                        1.
+                        Regular Maintenance
+                        Cleaning:
+                    </strong> Regularly clean your appliances, such as washing out the lint trap in your dryer or cleaning the coils of your refrigerator. Dust and debris can cause overheating or inefficient operation.
+                    Check for wear: Look for any signs of wear, such as frayed cords or loose parts, and fix them early to avoid bigger issues.
+                    Service schedules: Some appliances need professional servicing (like HVAC systems or dishwashers) on a regular basis. Follow the manufacturer's recommended schedule.<br />
+                    <hr />
+                    <strong>
+                        2. Proper Usage
+                        Follow instructions:
+                    </strong>  Use your appliances according to the manual. Overloading a washing machine, using the wrong detergent, or running a refrigerator with the door open can all cause undue strain.
+                    Don’t push limits: For appliances like air conditioners or dishwashers, avoid running them at max capacity all the time. Give them a break to prevent excessive wear. <br />
+                    <hr />
+                    <strong>3. Proper Installation</strong>
+                    Ensure that your appliance is installed properly, either by a professional or following the manufacturer’s instructions. Incorrect installation can lead to inefficiency or damage.
+                    Appliances that are improperly leveled, connected to the wrong power supply, or poorly ventilated can suffer long-term issues. <br />
+                    <hr />
+                    <strong>
+                        4. Monitor Usage
+                        Energy-efficient settings:
+                    </strong> Many appliances have eco-friendly modes that help minimize wear and tear while saving energy.
+                    Keep an eye on performance: If your appliance isn’t functioning as efficiently as it used to, address the issue sooner rather than later. This could indicate a need for repair before the problem worsens. <br />
+                    <hr />
+                    <strong>5. Repairs Over Replacement</strong>
+                    If an appliance shows signs of malfunction, it’s often cheaper to repair than replace it immediately—especially if it's only a minor issue.
+                    Having a professional inspect or repair the appliance can save you the cost of a new one and extend its life for several more years. <br />
+                    <hr />
+                    <strong>6. Protect from Power Surges</strong>
+                    Use surge protectors or voltage regulators to protect appliances from power spikes. This is especially important for sensitive electronics like refrigerators, microwaves, or computers. <br />
+                    <hr />
+                    <strong>7. Keep it Cool and Dry</strong>
+                    Avoid placing appliances in areas with extreme temperatures or humidity. For example, avoid putting a refrigerator or microwave in direct sunlight, or near a heater, as this can cause it to work harder or wear out more quickly.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    What role does energy efficiency play in appliance design?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Energy efficiency has become a key consideration in appliance design due to environmental concerns and rising energy costs. 
+                    Many modern appliances are built to meet stringent energy standards, using advanced technologies like inverter motors, 
+                    smart thermostats, and better insulation to reduce power consumption. This not only helps the environment but also saves 
+                    consumers money on energy bills in the long run. Choosing energy-efficient models, coupled with regular maintenance, 
+                    ensures that appliances work as intended without unnecessary waste.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="newsletter" class="bg-section mt-3">
+    <div class="container py-5">
+        <h2 class="section-sub-title mb-2 fw-normal">Join Our Newsletter</h2>
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6">
+                <div class="input-group mb-3 newsletter-form">
+                    <input type="text" class="form-control email-input" placeholder="Enter Your Email" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-cus-primary subscribe-btn" type="button" id="button-addon2">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

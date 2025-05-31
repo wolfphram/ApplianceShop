@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item py-2 py-sm-1 col-12 col-sm-auto">
+            <hr class="d-lg-none my-2 text-white">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white fast-tooltip d-flex align-items-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="@User.Identity?.Name">
+                <i class="fa-solid fa-address-card" style="font-size: 2rem;"></i>
+                <span class="d-sm-none ms-3">Manage</span>
+            </a>
+        </li>
+
+        // Separator
+
+        <li class="nav-item d-none d-lg-flex align-items-center">
+            <div class="vr h-100 mx-lg-2 text-info"></div>
+        </li>
+
+        <li class="nav-item me-2 mt-3 mt-sm-0">
+            <a href="#" class="nav-link text-white fast-tooltip d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
+                <i class="fas fa-sign-out-alt" style="font-size: 2rem;"></i>
+                <span class="d-sm-none ms-3">Log Out</span>
+            </a>
+        </li>
+
+        @* <li class="nav-item"> *@
+        @*     <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"> *@
+        @*         <button  type="submit" class="nav-link btn btn-link text-white">Logout</button> *@
+        @*     </form> *@
+        @* </li> *@
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white fast-tooltip d-flex align-items-center" asp-area="Identity" asp-page="/Account/Register" title="Register">
+                <i class="fa-solid fa-user-plus" style="font-size: 2rem;"></i>
+                <span class="d-sm-none ms-3">Register</span>
+            </a>
+        </li>
+
+        // Separator horizontal rule
+        <li class="nav-item d-none d-lg-flex align-items-center">
+            <div class="vr h-100 mx-lg-2 text-info"></div>
+        </li>
+
+        <li class="nav-item me-2 mt-3 mt-sm-0">
+            <a class="nav-link text-white fast-tooltip d-flex align-items-center" asp-area="Identity" asp-page="/Account/Login" title="Login">
+                <i class="fa-solid fa-right-to-bracket" style="font-size: 2rem;"></i>
+                <span class="d-sm-none ms-3">Login</span>
+            </a>
+        </li>
+    }
+</ul>
+<!--LogOut Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to logout?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form class="d-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
